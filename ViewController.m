@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *kgSlideLbl;
 @property (weak, nonatomic) IBOutlet UIButton *computeBMIbtn;
 @property (weak, nonatomic) IBOutlet UILabel *customBMI;
+@property (weak, nonatomic) IBOutlet UITextField *bmiMsg;
 @end
 
 @implementation ViewController
@@ -80,6 +81,11 @@
     double inches = [self.inchesField.text doubleValue];
     double cent = [self.centimetersField.text doubleValue];
     
+    NSString *msg1 = @"You are Under Weight!";
+    NSString *msg2 = @"You are at a Normal Weight!";
+    NSString *msg3 = @"You are Over Weight!";
+    NSString *msg4 = @"You are Obese! Please Live Healthier!";
+    
     if(self.feetField.hidden == NO)
     {
         //SI BMI formula
@@ -90,6 +96,24 @@
         //bmi = (Kg/(height in meters squared))
         bmi = weight/((cent/100) * (cent/100));
     }
+    
+    if(bmi < 18.5)
+    {
+        self.bmiMsg.text = msg1;
+    }
+    else if (bmi >= 18.5 && bmi <= 24.9)
+    {
+        self.bmiMsg.text = msg2;
+    }
+    else if (bmi >= 25 && bmi <= 29.9)
+    {
+        self.bmiMsg.text = msg3;
+    }
+    else
+    {
+        self.bmiMsg.text = msg4;
+    }
+    
     NSString *calcMsg = [NSString stringWithFormat:@"%4.2f", bmi];
     self.customBMI.text = calcMsg;
 }
